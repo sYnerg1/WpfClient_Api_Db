@@ -1,0 +1,12 @@
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.DAL\bin\Debug\netcoreapp3.1\DataApi.DAL.deps.json
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.DAL\bin\Debug\netcoreapp3.1\DataApi.DAL.dll
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.DAL\obj\Debug\netcoreapp3.1\DataApi.DAL.csprojAssemblyReference.cache
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.DAL\obj\Debug\netcoreapp3.1\DataApi.DAL.AssemblyInfoInputs.cache
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.DAL\obj\Debug\netcoreapp3.1\DataApi.DAL.AssemblyInfo.cs
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.DAL\bin\Debug\netcoreapp3.1\DataApi.DAL.runtimeconfig.json
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.DAL\bin\Debug\netcoreapp3.1\DataApi.DAL.runtimeconfig.dev.json
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.DAL\obj\Debug\netcoreapp3.1\DataApi.DAL.genruntimeconfig.cache
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.DAL\bin\Debug\netcoreapp3.1\DataApi.DAL.pdb
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.DAL\obj\Debug\netcoreapp3.1\DataApi.DAL.csproj.CoreCompileInputs.cache
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.DAL\obj\Debug\netcoreapp3.1\DataApi.DAL.dll
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.DAL\obj\Debug\netcoreapp3.1\DataApi.DAL.pdb

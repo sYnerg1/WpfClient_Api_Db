@@ -1,0 +1,133 @@
+﻿<Window x:Class="TestWPF.CustomerProfileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWPF"
+        mc:Ignorable="d"
+        Title="CustomerProfileWindow" Height="727" Width="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label  FontSize="24" Margin="10">User data</Label>
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Margin="7">
+            
+            <Label  FontSize="18" Margin="10" FontWeight="Bold">Personal</Label>
+            <ComboBox Width="100" HorizontalAlignment="Left" Text="Greeting">Greeting</ComboBox>
+            <TextBox Height="40">Firs Name</TextBox>
+            <TextBox Height="40">Lst Name</TextBox>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="10">
+            <Label  FontSize="18" Margin="10" FontWeight="Bold">Adress</Label>
+            <ComboBox Width="100" HorizontalAlignment="Left" Text="Country">Country</ComboBox>
+            <TextBox Height="40">City</TextBox>
+            <TextBox Height="40">Street</TextBox>
+            <TextBox Height="40">Postal code</TextBox>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Margin="10,12,6,8">
+            <Label  FontSize="18" Margin="10" FontWeight="Bold">Work</Label>
+            <TextBox Height="40">Company</TextBox>
+            <TextBox Height="40">Title</TextBox>
+        </StackPanel>
+        
+        <Grid Grid.Row="3" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                </Grid.RowDefinitions>
+            <Label Grid.Row="0" FontSize="18" Margin="10" FontWeight="Bold">Contacts</Label>
+            <StackPanel Grid.Row="1"
+                        Grid.Column="0"  
+                        Width="Auto" 
+                        Orientation="Horizontal"
+                        Margin="5,5,5,-9"
+                        Height="Auto">
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Control.Width" Value="50" />
+                        <Setter Property="Control.Height" Value="50" />
+                        <Setter Property="Control.Margin" Value="5" />
+                    </Style>
+                </StackPanel.Resources>
+                
+                <Button Grid.Row="1" Background="LightSkyBlue" Content="New" Click="Button_Click" />
+                <Button Grid.Row="1" Background="LightSkyBlue" Content="Edit"/>
+                <Button Grid.Row="1" Background="LightSkyBlue" Content="Delete" />
+        </StackPanel>
+    </Grid>
+            
+        
+        <!--<Grid ShowGridLines="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="60,22,57,26">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0"></Label>
+            
+        </Grid>-->
+        <Grid HorizontalAlignment="Stretch" 
+          VerticalAlignment="Stretch" 
+          Margin="15" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+
+            <Rectangle Grid.Column="0"
+                   Grid.Row="0" 
+                     Stroke="Gray"/>
+            <TextBlock Grid.Column="0" 
+                   Grid.Row="0"
+                   Text="Email" />
+            <Rectangle Grid.Column="1"
+                   Grid.Row="0"  
+                   Stroke="Gray" />
+            <TextBox Grid.Column="1" 
+                   Grid.Row="0"
+                   Text="(1,0)" />
+            <Rectangle Grid.Column="0"
+                   Grid.Row="1"  
+                   Stroke="Gray" 
+                   Fill="LightGray"/>
+            <TextBlock Grid.Column="0" 
+                   Grid.Row="1"
+                   Text="Phone" />
+            <Rectangle Grid.Column="1"
+                   Grid.Row="1"  
+                   Stroke="Gray"/>
+            <TextBox Grid.Column="1" 
+                   Grid.Row="1"
+                   Text="(1,0)"
+                     Background="LightGray"/>
+        </Grid>
+
+        <Button Grid.Column="1" 
+                Grid.Row="5" 
+                Width="70" 
+                Height="20" 
+                HorizontalAlignment="Right" 
+                Margin="10"  
+                Background="LightSkyBlue">Save
+        </Button>
+        
+    </Grid>
+</Window>

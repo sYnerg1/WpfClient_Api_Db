@@ -1,0 +1,94 @@
+﻿<Window x:Class="TestWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="507.857" Width="1057.143" Loaded="MainWindow_Loaded">
+    <Window.Resources>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition  Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Canvas  Grid.Row="0">
+            <Label Canvas.Left="20" Canvas.Top="20" FontSize="22">Customers</Label>
+            <ToolBar Canvas.Top="20" Canvas.Right="20" Height="50">
+                <ToolBar.Resources>
+                    <Style TargetType ="Button">
+                        <Setter Property="Control.Width" Value="50" />
+                        <Setter Property="Control.Height" Value="50" />
+                       <Setter Property="Control.Margin" Value="5" />
+                    </Style>
+                </ToolBar.Resources>
+                <TextBox x:Name="searchBox" Width="120" TextChanged="TextBox_TextChanged"></TextBox>
+                <Button Click="Button_Click_2">Search</Button>
+                <Separator></Separator>
+                <ComboBox x:Name ="languageSelector" Width="50" 
+                          Height="20" 
+                          SelectedIndex="3" 
+                          VerticalContentAlignment="Center" 
+                          HorizontalContentAlignment="Center" 
+                          Margin="3" SelectionChanged="ComboBox_SelectionChanged">
+                    
+                    <ComboBoxItem>
+                        <TextBlock>GR</TextBlock>
+                    </ComboBoxItem>
+                    <TextBlock>FR</TextBlock>
+                    <TextBlock>IT</TextBlock>
+                    <TextBlock Selector.IsSelected="True">EN</TextBlock>
+
+                </ComboBox>
+                <Button Background="LightSkyBlue" Content="New" Click="NewCutomerAdd" />
+                <Button Background="LightSkyBlue" Content="Edit"/>
+                <Button Background="LightSkyBlue" Content="Refresh" Click="Button_Click"/>
+                <Button Background="LightSkyBlue" Content="Delete" Click="Button_Click_1" />
+            </ToolBar>
+        </Canvas>
+
+        <DataGrid x:Name="personsGrid" 
+                  AutoGenerateColumns="False" 
+                  Grid.Row="1" 
+                  SelectionMode="Extended" 
+                  ItemsSource="{Binding Persons}"
+                  SelectedItem="{Binding SelectedPerson}"
+                  Width="Auto"
+                  IsReadOnly="True"
+                  MouseDoubleClick="personsGrid_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Adress No" Width="*"
+                             Binding="{Binding Path=Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Company" Width="*"
+                             Binding="{Binding Path=Cpny}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Greeting" Width="*"
+                             Binding="{Binding Path=GreetingView}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Title" Width="*"
+                             Binding="{Binding Path=Title}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Last Name" Width="*"
+                             Binding="{Binding Path=Lname}"></DataGridTextColumn>
+                <DataGridTextColumn Header="FirstName" Width="*"
+                             Binding="{Binding Path=Fname}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Street" Width="2*"
+                             Binding="{Binding Path=Street,StringFormat={}{0:C}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Country" Width="2*"
+                             Binding="{Binding Path=CountryView}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Postal Code" Width="*"
+                             Binding="{Binding Path=Zip,StringFormat={}{0:C}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="City" Width="*"
+                             Binding="{Binding Path=City,StringFormat={}{0:C}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Phone" Width="*"
+                             Binding="{Binding Path=Contact,StringFormat={}{0:C}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Birthday" Width="*"
+                             Binding="{Binding Path=DateOfBirth,StringFormat={}{0:C}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Registration" Width="*"
+                             Binding="{Binding Path=FirstContact,StringFormat={}{0:C}}"></DataGridTextColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+    </Grid>
+</Window>

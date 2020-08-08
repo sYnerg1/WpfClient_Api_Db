@@ -1,0 +1,12 @@
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.BAL\bin\Debug\netcoreapp3.1\DataApi.DAL.dll
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.BAL\obj\Debug\netcoreapp3.1\DataApi.BAL.csprojAssemblyReference.cache
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.BAL\obj\Debug\netcoreapp3.1\DataApi.BAL.AssemblyInfoInputs.cache
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.BAL\obj\Debug\netcoreapp3.1\DataApi.BAL.AssemblyInfo.cs
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.BAL\bin\Debug\netcoreapp3.1\DataApi.BAL.deps.json
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.BAL\bin\Debug\netcoreapp3.1\DataApi.BAL.dll
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.BAL\bin\Debug\netcoreapp3.1\DataApi.BAL.pdb
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.BAL\bin\Debug\netcoreapp3.1\DataApi.DAL.pdb
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.BAL\obj\Debug\netcoreapp3.1\DataApi.BAL.csproj.CoreCompileInputs.cache
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.BAL\obj\Debug\netcoreapp3.1\DataApi.BAL.csproj.CopyComplete
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.BAL\obj\Debug\netcoreapp3.1\DataApi.BAL.dll
+C:\Users\sYnerg1\Desktop\TestWPF\DataApi.BAL\obj\Debug\netcoreapp3.1\DataApi.BAL.pdb
