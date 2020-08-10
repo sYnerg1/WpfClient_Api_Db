@@ -1,11 +1,19 @@
 ﻿<Window x:Class="TestWPF.CustomerProfileWindow"
+      
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TestWPF"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"       
         mc:Ignorable="d"
-        Title="CustomerProfileWindow" Height="727" Width="600">
+        ResizeMode="NoResize"
+        xmlns:MultyDataGrid="clr-namespace:TestWPF.MultySelectedDataGrid"
+        Title="CustomerProfileWindow" Height="901" Width="600">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="ItemsControl.Margin" Value="5"></Setter>
+
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -23,21 +31,38 @@
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Margin="7">
             
             <Label  FontSize="18" Margin="10" FontWeight="Bold">Personal</Label>
-            <ComboBox Width="100" HorizontalAlignment="Left" Text="Greeting">Greeting</ComboBox>
-            <TextBox Height="40">Firs Name</TextBox>
-            <TextBox Height="40">Lst Name</TextBox>
+            <Label>Greeting</Label>
+            <ComboBox x:Name="greetingBox"
+                      Width="150" 
+                      HorizontalAlignment="Left"
+                      Margin="5">
+            </ComboBox>
+            <Label>First Name</Label>
+            <TextBox Height="25"></TextBox>
+            <Label>LastName</Label>
+            <TextBox Height="25"></TextBox>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="10">
             <Label  FontSize="18" Margin="10" FontWeight="Bold">Adress</Label>
-            <ComboBox Width="100" HorizontalAlignment="Left" Text="Country">Country</ComboBox>
-            <TextBox Height="40">City</TextBox>
-            <TextBox Height="40">Street</TextBox>
-            <TextBox Height="40">Postal code</TextBox>
+            <Label>Country</Label>
+            <ComboBox x:Name="countryBox"
+                      Width="150" 
+                      HorizontalAlignment="Left"
+                      Margin="5">
+            </ComboBox>
+            <Label>City</Label>
+            <TextBox Height="25"></TextBox>
+            <Label>Street</Label>
+            <TextBox Height="25"></TextBox>
+            <Label>PostalCode</Label>
+            <TextBox Height="25"></TextBox>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Margin="10,12,6,8">
+        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Margin="10">
             <Label  FontSize="18" Margin="10" FontWeight="Bold">Work</Label>
-            <TextBox Height="40">Company</TextBox>
-            <TextBox Height="40">Title</TextBox>
+            <Label>Company</Label>
+            <TextBox Height="25"></TextBox>
+            <Label>Title</Label>
+            <TextBox Height="25"></TextBox>
         </StackPanel>
         
         <Grid Grid.Row="3" Grid.Column="0">
@@ -46,24 +71,63 @@
                 <RowDefinition Height="60"></RowDefinition>
                 </Grid.RowDefinitions>
             <Label Grid.Row="0" FontSize="18" Margin="10" FontWeight="Bold">Contacts</Label>
-            <StackPanel Grid.Row="1"
+            <ToolBar Grid.Row="1"
+                     Background="White"
                         Grid.Column="0"  
                         Width="Auto" 
-                        Orientation="Horizontal"
-                        Margin="5,5,5,-9"
+                        Margin="5"
                         Height="Auto">
-                <StackPanel.Resources>
+                <ToolBar.Resources>
                     <Style TargetType="Button">
                         <Setter Property="Control.Width" Value="50" />
                         <Setter Property="Control.Height" Value="50" />
                         <Setter Property="Control.Margin" Value="5" />
                     </Style>
-                </StackPanel.Resources>
-                
-                <Button Grid.Row="1" Background="LightSkyBlue" Content="New" Click="Button_Click" />
-                <Button Grid.Row="1" Background="LightSkyBlue" Content="Edit"/>
-                <Button Grid.Row="1" Background="LightSkyBlue" Content="Delete" />
-        </StackPanel>
+                </ToolBar.Resources>
+
+                <Button Width="50"
+                        Height="40"
+                        Margin="5"
+                        Background="LightSkyBlue" 
+                        Content="New" Click="New_Contact_Click" />
+
+                <Button Width="50"
+                        Height="40"
+                        Margin="5"
+                        Background="LightSkyBlue" 
+                        Content="Edit" Click="Edit_Contacts_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="IsEnabled" Value="False" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedItemsList.Count,ElementName=contactsGrid}"
+                                 Value="1">
+                                    <Setter Property="IsEnabled"
+                                Value="True" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <Button Width="50"
+                        Height="40"
+                        Margin="5"
+                        Background="LightSkyBlue" 
+                        Content="Delete" Click="DeleteContacts_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedItemsList.Count,ElementName=contactsGrid}"
+                                 Value="0">
+                                    <Setter Property="IsEnabled"
+                                Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </ToolBar>
     </Grid>
             
         
@@ -83,51 +147,50 @@
           VerticalAlignment="Stretch" 
           Margin="15" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
+                <RowDefinition Height="100" />
             </Grid.RowDefinitions>
-
-            <Rectangle Grid.Column="0"
-                   Grid.Row="0" 
-                     Stroke="Gray"/>
-            <TextBlock Grid.Column="0" 
-                   Grid.Row="0"
-                   Text="Email" />
-            <Rectangle Grid.Column="1"
-                   Grid.Row="0"  
-                   Stroke="Gray" />
-            <TextBox Grid.Column="1" 
-                   Grid.Row="0"
-                   Text="(1,0)" />
-            <Rectangle Grid.Column="0"
-                   Grid.Row="1"  
-                   Stroke="Gray" 
-                   Fill="LightGray"/>
-            <TextBlock Grid.Column="0" 
-                   Grid.Row="1"
-                   Text="Phone" />
-            <Rectangle Grid.Column="1"
-                   Grid.Row="1"  
-                   Stroke="Gray"/>
-            <TextBox Grid.Column="1" 
-                   Grid.Row="1"
-                   Text="(1,0)"
-                     Background="LightGray"/>
+            <MultyDataGrid:MultySelectedDataGrid x:Name="contactsGrid"
+                      ItemsSource="{Binding Contacts}"
+                      SelectedItemsList="{Binding SelectedContacts,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"
+                      IsReadOnly="True"
+                      Width="Auto"
+                      Height="Auto"
+                      HeadersVisibility="None"
+                      DataContext="{Binding}"
+                      AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*"
+                                        Binding="{Binding ContactTypeId,Converter={StaticResource Convertor}}"></DataGridTextColumn>
+                    <DataGridTextColumn Width="*"
+                                        Binding="{Binding Txt}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </MultyDataGrid:MultySelectedDataGrid>
+            
         </Grid>
-
-        <Button Grid.Column="1" 
-                Grid.Row="5" 
+        <StackPanel Grid.Column="1"
+                    Grid.Row="5"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button  
                 Width="70" 
                 Height="20" 
                 HorizontalAlignment="Right" 
-                Margin="10"  
-                Background="LightSkyBlue">Save
-        </Button>
+                Margin="5"  
+                Background="LightSkyBlue" Click="Save_CustomerProfile_Click">Save
+            </Button>
+            <Button  
+                Width="70" 
+                Height="20" 
+                HorizontalAlignment="Right" 
+                Margin="5"  
+                Background="LightSkyBlue">Cancel
+            </Button>
+        </StackPanel>
+       
         
     </Grid>
 </Window>

@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestWPF"
+        xmlns:MultyDataGrid="clr-namespace:TestWPF.MultySelectedDataGrid"
         mc:Ignorable="d"
         Title="MainWindow" Height="507.857" Width="1057.143" Loaded="MainWindow_Loaded">
     <Window.Resources>
-
+        
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -25,16 +26,20 @@
                        <Setter Property="Control.Margin" Value="5" />
                     </Style>
                 </ToolBar.Resources>
-                <TextBox x:Name="searchBox" Width="120" TextChanged="TextBox_TextChanged"></TextBox>
-                <Button Click="Button_Click_2">Search</Button>
+                <TextBox x:Name="searchBox" Width="120"></TextBox>
+                <Button 
+                        Command="{Binding SearchCommand}"
+                        CommandParameter="{Binding ElementName=searchBox,Path=Text}"
+                        Content="Search">
+                </Button>
                 <Separator></Separator>
-                <ComboBox x:Name ="languageSelector" Width="50" 
+                <ComboBox x:Name ="languageSelector" 
+                          Width="50" 
                           Height="20" 
-                          SelectedIndex="3" 
                           VerticalContentAlignment="Center" 
                           HorizontalContentAlignment="Center" 
-                          Margin="3" SelectionChanged="ComboBox_SelectionChanged">
-                    
+                          Margin="3" 
+                          SelectedIndex="{Binding Path=LanguageId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged" Loaded="languageSelector_Load">
                     <ComboBoxItem>
                         <TextBlock>GR</TextBlock>
                     </ComboBoxItem>
@@ -44,18 +49,52 @@
 
                 </ComboBox>
                 <Button Background="LightSkyBlue" Content="New" Click="NewCutomerAdd" />
-                <Button Background="LightSkyBlue" Content="Edit"/>
-                <Button Background="LightSkyBlue" Content="Refresh" Click="Button_Click"/>
-                <Button Background="LightSkyBlue" Content="Delete" Click="Button_Click_1" />
+                <Button Background="LightSkyBlue" 
+                        Content="Edit" 
+                        Click="Edit_Customer_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="IsEnabled" Value="False" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedItemsList.Count,ElementName=personsGrid}"
+                                 Value="1">
+                                    <Setter Property="IsEnabled"
+                                Value="True" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Background="LightSkyBlue" 
+                        Content="Refresh"
+                        CommandParameter="{Binding ElementName=searchBox,Path=Text}"
+                        Command="{Binding RefreshCommand}"/>
+                <Button Background="LightSkyBlue"
+                        Content="Delete" 
+                        Command="{Binding DeleteCommand}"
+                        CommandParameter="{Binding ElementName=personsGrid,Path=SelectedItems}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedItemsList.Count,ElementName=personsGrid}"
+                                 Value="0">
+                                    <Setter Property="IsEnabled"
+                                Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </ToolBar>
         </Canvas>
 
-        <DataGrid x:Name="personsGrid" 
+        <MultyDataGrid:MultySelectedDataGrid x:Name="personsGrid"                   
                   AutoGenerateColumns="False" 
                   Grid.Row="1" 
                   SelectionMode="Extended" 
                   ItemsSource="{Binding Persons}"
                   SelectedItem="{Binding SelectedPerson}"
+                  SelectedItemsList="{Binding SelectedPersons,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  
                   Width="Auto"
                   IsReadOnly="True"
                   MouseDoubleClick="personsGrid_MouseDoubleClick">
@@ -73,22 +112,22 @@
                 <DataGridTextColumn Header="FirstName" Width="*"
                              Binding="{Binding Path=Fname}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Street" Width="2*"
-                             Binding="{Binding Path=Street,StringFormat={}{0:C}}"></DataGridTextColumn>
+                             Binding="{Binding Path=Street}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Country" Width="2*"
                              Binding="{Binding Path=CountryView}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Postal Code" Width="*"
-                             Binding="{Binding Path=Zip,StringFormat={}{0:C}}"></DataGridTextColumn>
+                             Binding="{Binding Path=Zip}"></DataGridTextColumn>
                 <DataGridTextColumn Header="City" Width="*"
-                             Binding="{Binding Path=City,StringFormat={}{0:C}}"></DataGridTextColumn>
+                             Binding="{Binding Path=City}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Phone" Width="*"
-                             Binding="{Binding Path=Contact,StringFormat={}{0:C}}"></DataGridTextColumn>
+                             Binding="{Binding Path=Contact}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Birthday" Width="*"
-                             Binding="{Binding Path=DateOfBirth,StringFormat={}{0:C}}"></DataGridTextColumn>
+                             Binding="{Binding Path=DateOfBirth,StringFormat=dd-MM-yyyy}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Registration" Width="*"
-                             Binding="{Binding Path=FirstContact,StringFormat={}{0:C}}"></DataGridTextColumn>
+                             Binding="{Binding Path=FirstContact,StringFormat=dd-MM-yyyy}"></DataGridTextColumn>
             </DataGrid.Columns>
 
-        </DataGrid>
+        </MultyDataGrid:MultySelectedDataGrid>
 
     </Grid>
 </Window>

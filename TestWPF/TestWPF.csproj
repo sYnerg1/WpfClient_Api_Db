@@ -58,11 +58,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="ContactTypeConvertor.cs" />
+    <Compile Include="ContactTypeMapping.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="ContactWindow.xaml.cs">
+      <DependentUpon>ContactWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomerProfileWindow.xaml.cs">
       <DependentUpon>CustomerProfileWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\ActionModels\NewCutomerModel.cs" />
+    <Compile Include="Models\Contact.cs" />
     <Compile Include="MultySelectedDataGrid.cs" />
+    <Compile Include="NewContactWindow.xaml.cs">
+      <DependentUpon>NewContactWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewCustomerProfileWindow.xaml.cs">
+      <DependentUpon>NewCustomerProfileWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ContactVM.cs" />
+    <Compile Include="ViewModels\CustomerProfileVM.cs" />
     <Compile Include="ViewModels\PersonViewModel.cs" />
+    <Page Include="ContactWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomerProfileWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -79,6 +101,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NewContactWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NewCustomerProfileWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Country.cs" />
@@ -110,5 +140,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

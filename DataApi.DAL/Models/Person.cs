@@ -7,7 +7,8 @@ namespace DataApi.DAL.Models
     {
         public Person()
         {
-            PersonContact = new HashSet<PersonContact>();
+            PersonContact = new List<PersonContact>();
+            int k = 0;
         }
 
         public int Id { get; set; }
@@ -25,8 +26,9 @@ namespace DataApi.DAL.Models
         public DateTime FirstContact { get; set; }
         public string Notes { get; set; }
 
+
         public virtual Country CountryCodeNavigation { get; set; }
         public virtual Greeting Greeting { get; set; }
-        public virtual ICollection<PersonContact> PersonContact { get; set; }
+        public virtual List<PersonContact> PersonContact { get; set; }
     }
 }

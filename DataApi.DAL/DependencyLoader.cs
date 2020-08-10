@@ -12,7 +12,8 @@ namespace DataApi.DAL
         public static void Load(IServiceCollection services)
         {
             services.AddScoped<IPersonRepository, PersonRepository>();
-
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<IGreetingRepository, GreetingRepository>();
         }
     }
 }

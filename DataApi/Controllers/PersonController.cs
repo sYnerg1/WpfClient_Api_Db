@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DataApi.BAL.DTOs;
 using DataApi.BAL.Services;
-using DataApi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,26 +12,26 @@ namespace DataApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DataController : ControllerBase
+    public class PersonController : ControllerBase
     {
 
         private readonly IMapper _mapper;
         private readonly IPersonService _personService;
 
-      public DataController(IMapper mapper, IPersonService personService)
+        public PersonController(IMapper mapper, IPersonService personService)
         {
             _mapper = mapper;
             _personService = personService;
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> Get([FromQuery]int page,string text)
+        public async Task<IActionResult> Get([FromQuery] string text, int page = 1)
         {
-            
+
             SearchFilterDTO filter = new SearchFilterDTO()
-            { 
+            {
                 Page = page,
-              SearchText =text
+                SearchText = text
             };
 
             var result = await _personService.Find(filter);
@@ -40,19 +39,28 @@ namespace DataApi.Controllers
         }
 
 
-       
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            
-                return Ok();
-            
+            try
+            {
+                var person = await _personService.GetByIdAsync(id);
+                return Ok(person);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
         }
 
-        // POST api/<DataController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] PersonDTO person)
         {
+            await _personService.AddAsync(person);
+            return StatusCode(201);
         }
 
         // PUT api/<DataController>/5

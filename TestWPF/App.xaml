@@ -2,8 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TestWPF"
-             StartupUri="MainWindow.xaml">
+             StartupUri="MainWindow.xaml"
+             xmlns:Convertor="clr-namespace:TestWPF.Models">
     <Application.Resources>
-         
+        <Convertor:ContactTypeMapping x:Key="Convertor">
+
+        </Convertor:ContactTypeMapping>
     </Application.Resources>
 </Application>

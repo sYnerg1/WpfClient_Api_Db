@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
-using DataApi.Mapping;
 using DataApi.BAL;
 using DataApi.BAL.Mapping;
 using DataApi.DAL.EntityFramework;

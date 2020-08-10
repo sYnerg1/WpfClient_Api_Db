@@ -1,7 +1,6 @@
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\bin\Debug\TestWPF.exe.config
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\bin\Debug\TestWPF.exe
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\bin\Debug\TestWPF.pdb
-C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\TestWPF.csprojAssemblyReference.cache
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\MainWindow.g.cs
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\App.g.cs
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\TestWPF_MarkupCompile.cache
@@ -19,3 +18,12 @@ C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\TestWPF.csproj.CopyComplete
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\CustomerProfileWindow.g.cs
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\CustomerProfileWindow.baml
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\ContactWindow.g.cs
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\ContactWindow.baml
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\bin\Debug\ContactTypeMapping.cs
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\App.baml
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\TestWPF.csprojAssemblyReference.cache
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\NewCustomerProfileWindow.g.cs
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\NewCustomerProfileWindow.baml
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\NewContactWindow.g.cs
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\NewContactWindow.baml

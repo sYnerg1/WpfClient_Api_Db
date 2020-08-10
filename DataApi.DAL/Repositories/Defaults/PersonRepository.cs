@@ -1,5 +1,6 @@
 ﻿using DataApi.DAL.EntityFramework;
 using DataApi.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +31,15 @@ namespace DataApi.DAL.Repositories.Defaults
             throw new NotImplementedException();
         }
 
-        public Task<Person> GetByIdAsync(int id)
+        public async Task<Person> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var person = await _db.Person
+                .Include(p=>p.PersonContact)
+                .Include(p=>p.CountryCodeNavigation)
+                .Include(p=>p.Greeting)
+                .FirstOrDefaultAsync(x=>x.Id==id);
+
+            return person;
         }
 
         public IQueryable<Person> GetQuery()

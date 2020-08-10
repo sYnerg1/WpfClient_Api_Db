@@ -14,7 +14,8 @@ namespace DataApi.BAL
 
             DataApi.DAL.DependencyLoader.Load(services);
             services.AddScoped<IPersonService, PersonService>();
-
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IGreetingService, GreetingService>();
         }
     }
 }

@@ -22,14 +22,10 @@ namespace DataApi.DAL.EntityFramework
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<PersonContact> PersonContact { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //if (!optionsBuilder.IsConfigured)
-            //{
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
 
-            //    optionsBuilder.UseMySQL("server=localhost;port=3306;user=testUser;password=testpass19;database=test_db");
-            //}
-        }
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

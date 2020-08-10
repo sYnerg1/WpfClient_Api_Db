@@ -1,0 +1,56 @@
+﻿<Window x:Class="TestWPF.ContactWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWPF"
+        mc:Ignorable="d"
+        Title="ContactWindow" Height="232" Width="279"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0"
+               FontSize="18"
+               FontWeight="Bold"
+               Margin="10">New Contact
+        </Label>
+        <ComboBox x:Name="ContactTypeComboBox"
+            Grid.Row="1"
+                  Height="25"
+                  Width="250"
+                  HorizontalAlignment="Left"
+                  Margin="10">
+            <ComboBoxItem>
+                <TextBlock>Email</TextBlock>
+            </ComboBoxItem>
+            <TextBlock>Phone</TextBlock>
+        </ComboBox>
+        <TextBox x:Name="ContactTextBox"
+            Grid.Row="2"
+                 Height="25"
+                  Width="250"
+                  HorizontalAlignment="Left"
+                  Margin="10">
+            
+        </TextBox>
+        <StackPanel Grid.Row="3"
+            Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property ="ItemsControl.Margin" Value="10"></Setter>
+                    <Setter Property="Height" Value="20"></Setter>
+                    <Setter Property="Width" Value="70"></Setter>
+                    <Setter Property="Background" Value="LightBlue"></Setter>
+                </Style>
+            </StackPanel.Resources>
+            <Button>Save</Button>
+            <Button>Cancel</Button>
+        </StackPanel>
+    </Grid>
+</Window>
