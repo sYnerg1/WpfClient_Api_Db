@@ -76,7 +76,7 @@
                     <Button.Style>
                         <Style TargetType="Button">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedItemsList.Count,ElementName=personsGrid}"
+                                <DataTrigger Binding="{Binding ElementName=personsGrid,Path=SelectedItems.Count}"
                                  Value="0">
                                     <Setter Property="IsEnabled"
                                 Value="False" />
@@ -88,13 +88,12 @@
             </ToolBar>
         </Canvas>
 
-        <MultyDataGrid:MultySelectedDataGrid x:Name="personsGrid"                   
+        <DataGrid x:Name="personsGrid"                   
                   AutoGenerateColumns="False" 
                   Grid.Row="1" 
                   SelectionMode="Extended" 
                   ItemsSource="{Binding Persons}"
-                  SelectedItem="{Binding SelectedPerson}"
-                  SelectedItemsList="{Binding SelectedPersons,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  
+                  SelectedItem="{Binding SelectedPerson}" 
                   Width="Auto"
                   IsReadOnly="True"
                   MouseDoubleClick="personsGrid_MouseDoubleClick">
@@ -127,7 +126,7 @@
                              Binding="{Binding Path=FirstContact,StringFormat=dd-MM-yyyy}"></DataGridTextColumn>
             </DataGrid.Columns>
 
-        </MultyDataGrid:MultySelectedDataGrid>
+        </DataGrid>
 
     </Grid>
 </Window>

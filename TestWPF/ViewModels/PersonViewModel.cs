@@ -16,24 +16,11 @@ namespace TestWPF.ViewModels
 {
     public class PersonViewModel: INotifyPropertyChanged
     {
-
         private Person selectedPerson;
         private int languageId=0;
 
-        private IList _selectedPersons = new ArrayList();
-        public IList SelectedPersons
-        {
-            get { return _selectedPersons; }
-            set
-            {
-                _selectedPersons = value;
-                RaisePropertyChanged("SelectedPersons");
-            }
-        }
-
         public ObservableCollection<Person> Persons { get; set; }
         
-
         public PersonViewModel()
         {
             Persons = new ObservableCollection<Person>();
@@ -149,12 +136,16 @@ namespace TestWPF.ViewModels
 
         public async void Delete(object obj)
         {
-            var k = obj as IList;
-            foreach(Person p in k)
+            var castToIList = obj as IList;
+            if (obj != null)
             {
-                Persons.Remove(p);
+                var listOfSelectedItems = castToIList.OfType<Person>().ToList();
+
+                foreach (Person p in listOfSelectedItems)
+                {
+                    Persons.Remove(p);
+                }
             }
-            SelectedPersons.Clear();
         }
 
 

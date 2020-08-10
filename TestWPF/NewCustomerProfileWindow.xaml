@@ -132,11 +132,13 @@
                         Height="40"
                         Margin="5"
                         Background="LightSkyBlue" 
-                        Content="Delete">
+                        Content="Delete"
+                        Command="{Binding DeleteCommand}"
+                        CommandParameter="{Binding ElementName=contactsGrid, Path=SelectedItems}">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedItemsList.Count,ElementName=contactsGrid}"
+                                <DataTrigger Binding="{Binding ElementName=contactsGrid, Path=SelectedItems.Count}"
                                  Value="0">
                                     <Setter Property="IsEnabled"
                                 Value="False" />
@@ -171,9 +173,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
-            <MultyDataGrid:MultySelectedDataGrid x:Name="contactsGrid"
+            <DataGrid x:Name="contactsGrid"
                       ItemsSource="{Binding Contacts}"
-                      SelectedItemsList="{Binding SelectedContacts,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"
                       IsReadOnly="True"
                       Width="Auto"
                       Height="Auto"
@@ -186,7 +187,7 @@
                     <DataGridTextColumn Width="*"
                                         Binding="{Binding Txt}"></DataGridTextColumn>
                 </DataGrid.Columns>
-            </MultyDataGrid:MultySelectedDataGrid>
+            </DataGrid>
 
         </Grid>
         <StackPanel Grid.Column="1"

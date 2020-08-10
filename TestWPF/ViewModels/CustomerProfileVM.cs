@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using TestWPF.Commands;
 using TestWPF.Models;
 
 namespace TestWPF.ViewModels
@@ -17,17 +18,6 @@ namespace TestWPF.ViewModels
         {
             Contacts = new ObservableCollection<Contact>();
             person = new Person();
-        }
-
-        private IList _selectedContacts = new ArrayList();
-        public IList SelectedContacts
-        {
-            get { return _selectedContacts; }
-            set
-            {
-                _selectedContacts = value;
-                RaisePropertyChanged("SelectedContacts");
-            }
         }
 
         public ObservableCollection<Contact> Contacts { get; set; }
@@ -67,6 +57,30 @@ namespace TestWPF.ViewModels
             var pc = PropertyChanged1;
             if (pc != null)
                 pc(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private RelayCommand deleteCommand;
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                return deleteCommand ??
+                  (deleteCommand = new RelayCommand(Delete));
+            }
+        }
+
+        public async void Delete(object obj)
+        {
+            var castToIList = obj as IList;
+            if (obj != null)
+            {
+                var listOfSelectedItems = castToIList.OfType<Contact>().ToList();
+
+                foreach (Contact c in listOfSelectedItems)
+                {
+                    Contacts.Remove(c);
+                }
+            }
         }
     }
 }
