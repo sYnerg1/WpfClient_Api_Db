@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:TestWPF"
         mc:Ignorable="d"
         Title="ContactWindow" Height="232" Width="279"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -17,26 +18,27 @@
         <Label Grid.Row="0"
                FontSize="18"
                FontWeight="Bold"
-               Margin="10">New Contact
+               Margin="10">Contact
         </Label>
         <ComboBox x:Name="ContactTypeComboBox"
-            Grid.Row="1"
+                  Grid.Row="1"
                   Height="25"
                   Width="250"
                   HorizontalAlignment="Left"
                   Margin="10">
             <ComboBoxItem>
-                <TextBlock>Email</TextBlock>
+                <TextBlock>Phone</TextBlock>
             </ComboBoxItem>
-            <TextBlock>Phone</TextBlock>
+            <TextBlock>Email</TextBlock>
         </ComboBox>
         <TextBox x:Name="ContactTextBox"
-            Grid.Row="2"
-                 Height="25"
+                  Grid.Row="2"
+                  Height="25"
+                  DataContext="{Binding Contact}"
                   Width="250"
+                  Text="{Binding Txt}"
                   HorizontalAlignment="Left"
                   Margin="10">
-            
         </TextBox>
         <StackPanel Grid.Row="3"
             Orientation="Horizontal"
@@ -49,8 +51,8 @@
                     <Setter Property="Background" Value="LightBlue"></Setter>
                 </Style>
             </StackPanel.Resources>
-            <Button>Save</Button>
-            <Button>Cancel</Button>
+            <Button Click="Update_Contact_Click">Update</Button>
+            <Button Click="Cancel_Contact_Click">Cancel</Button>
         </StackPanel>
     </Grid>
 </Window>

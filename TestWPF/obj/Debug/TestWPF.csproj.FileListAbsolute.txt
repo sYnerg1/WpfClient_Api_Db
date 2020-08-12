@@ -22,8 +22,8 @@ C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\ContactWindow.g.cs
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\ContactWindow.baml
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\bin\Debug\ContactTypeMapping.cs
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\App.baml
-C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\TestWPF.csprojAssemblyReference.cache
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\NewCustomerProfileWindow.g.cs
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\NewCustomerProfileWindow.baml
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\NewContactWindow.g.cs
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\NewContactWindow.baml
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\TestWPF.csprojAssemblyReference.cache

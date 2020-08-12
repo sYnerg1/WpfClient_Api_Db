@@ -40,13 +40,11 @@ namespace DataApi.BAL.Services.Defaults
                     x.Cpny == filter.SearchText ||
                     x.City == filter.SearchText ||
                     x.Lname == filter.SearchText)
-                    .Distinct();
-                    
+                    .Distinct();                    
             }
-
             queryOfPersons = queryOfPersons
-                .Skip((filter.Page - 1) * 20)
-                .Take(20);
+                .Skip((filter.Page - 1) * 32)
+                .Take(32);
 
             queryOfPersons = queryOfPersons
                 .Include(p => p.Greeting)
@@ -73,12 +71,26 @@ namespace DataApi.BAL.Services.Defaults
             return personDTO;
         }
 
-        public async Task AddAsync(PersonDTO personDTO)
+        public async Task<int> AddAsync(PersonDTO personDTO)
         {
-            IEnumerable<PersonContact> contacts = _map.Map<IEnumerable<ContactDTO>,IEnumerable<PersonContact>>(personDTO.Contacts);
             Person person = _map.Map<PersonDTO,Person>(personDTO);
-            person.PersonContact.AddRange(contacts);
-            await _persons.AddAsync(person);
+            return await _persons.AddAsync(person);
+        }
+
+        public async Task<bool> UpdateAsync(int id, PersonDTO personDTO)
+        {            
+            var person = _map.Map<PersonDTO,Person>(personDTO);
+
+            var result = await _persons.UpdateAsync(id, person);
+
+            return result;
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var result = await _persons.DeleteAsync(id);
+
+            return result;
         }
     }
 }

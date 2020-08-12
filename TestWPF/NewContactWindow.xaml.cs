@@ -21,6 +21,7 @@ namespace TestWPF
     /// </summary>
     public partial class NewContactWindow : Window
     {
+        public Random rand = new Random();
         public event Action<Contact> ContactCreated;
 
         private ContactVM _contact;
@@ -38,6 +39,7 @@ namespace TestWPF
         private void NewContact_Save_Click(object sender, RoutedEventArgs e)
         {
             _contact.Contact.ContactTypeId = ContactTypeComboBox.SelectedIndex+1;
+            _contact.Contact.PersonContactId = rand.Next();
             ContactCreated(_contact.Contact);
             this.DialogResult = true;
         }

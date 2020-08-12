@@ -23,9 +23,9 @@ namespace TestWPF
     /// </summary>
     public partial class NewCustomerProfileWindow : Window
     {
-        public event Action<Person> CustomerProfileCreated;
+        public event Action<int> CustomerProfileCreated;
 
-        private readonly IEnumerable<Greeting> _greetings;
+        private readonly List<Greeting> _greetings;
         private readonly List<Country> _countries;
         private readonly int _languageCode;
 
@@ -34,7 +34,7 @@ namespace TestWPF
         private HttpClient _client = new HttpClient();
 
 
-        public NewCustomerProfileWindow(List<Country> countries,IEnumerable<Greeting> greeetings, int languageCode)
+        public NewCustomerProfileWindow(List<Country> countries, List<Greeting> greeetings, int languageCode)
         {
             _newCustomer = new CustomerProfileVM();
             _greetings = greeetings;
@@ -71,22 +71,53 @@ namespace TestWPF
                     break;
             }
         }
-
+        
         private async void NewCustumerProfile_Save_Click(object sender, RoutedEventArgs e)
         {
-            _newCustomer.Person.CountryCode = _countries[countryBox.SelectedIndex].Code;
-            _newCustomer.Person.FirstContact = DateTime.Now;
-            _newCustomer.Person.Contacts = _newCustomer.Contacts.ToList();
-            string json = JsonConvert.SerializeObject(_newCustomer.Person);
+            if ((_newCustomer.Person.Lname == "" || _newCustomer.Person.Lname == null) ||
+                (_newCustomer.Person.Fname == "" || _newCustomer.Person.Fname == null) ||
+                (_newCustomer.Person.City == "" || _newCustomer.Person.City == null))
+            {
+                MessageBox.Show("Fields\nLast name\nFirst name\nCity\nAre Required!!!");
+            }
+            else
+            {
+                _newCustomer.Person.CountryCode = _countries[countryBox.SelectedIndex].Code;
 
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
+                _newCustomer.Person.Contacts = _newCustomer.Contacts.ToList();
 
-            HttpResponseMessage response = await _client.PostAsync("person", data);
-            response.EnsureSuccessStatusCode();
+                if (_newCustomer.Person.Contacts.Any(x => x.ContactTypeId == 1))
+                {
+                    _newCustomer.Person.Contact = _newCustomer.Person.Contacts.FirstOrDefault(x => x.ContactTypeId == 1).Txt;
+                }
+                else
+                {
+                    _newCustomer.Person.Contact = null;
+                }
 
-            CustomerProfileCreated(_newCustomer.Person);
+                _newCustomer.Person.GreetingView = _greetings[greetingBox.SelectedIndex].Txt1;
+                _newCustomer.Person.CountryView = _countries[countryBox.SelectedIndex].Txt1;
+                _newCustomer.Person.GreetingId++;
 
-            this.DialogResult = true;
+                _newCustomer.Person.FirstContact = DateTime.Now;
+               
+                string json = JsonConvert.SerializeObject(_newCustomer.Person);
+
+                var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _client.PostAsync("person", data);
+                if (response.IsSuccessStatusCode)
+                {
+                    string cteatedIdString = await response.Content.ReadAsStringAsync();
+                    int createdId = Convert.ToInt32(cteatedIdString);
+                    CustomerProfileCreated(createdId);
+                    this.DialogResult = true;
+                }
+                else
+                {
+                    MessageBox.Show($"{response.Content}");
+                }
+            }
         }
 
         private void NewCustumerProfile_Cancel_Click(object sender, RoutedEventArgs e)
@@ -96,19 +127,28 @@ namespace TestWPF
 
         private void NewContact_Click(object sender, RoutedEventArgs e)
         {
-
             NewContactWindow window = new NewContactWindow();
             window.ContactCreated += SaveContact;
+            window.ShowDialog();
 
-            if (window.ShowDialog() == true)
-            {
-                MessageBox.Show("Added");
-            }
         }
 
         public void SaveContact(Contact contact)
         {
             _newCustomer.Contacts.Add(contact);
+        }
+
+
+        private void EditContact_Button_Click(object sender, RoutedEventArgs e)
+        {
+            ContactWindow window = new ContactWindow(_newCustomer.SelectedContact);
+            window.ShowDialog();
+
+        }
+
+        private void TextBox_Error(object sender, ValidationErrorEventArgs e)
+        {
+            MessageBox.Show(e.Error.ErrorContent.ToString());
         }
     }
 }

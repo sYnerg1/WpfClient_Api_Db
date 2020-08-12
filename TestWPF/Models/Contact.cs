@@ -16,10 +16,12 @@ namespace TestWPF.Models
 
         }
 
-        private int contactTypeId = 0;
+        
         private string txt;
 
         public int PersonContactId { get; set; }
+
+        private int contactTypeId = 0;
         public int ContactTypeId
         {
             get { return contactTypeId; }

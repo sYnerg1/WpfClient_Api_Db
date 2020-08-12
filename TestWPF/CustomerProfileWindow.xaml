@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"       
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        xmlns:MultyDataGrid="clr-namespace:TestWPF.MultySelectedDataGrid"
+        WindowStartupLocation="CenterScreen"
         Title="CustomerProfileWindow" Height="901" Width="600">
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}">
@@ -14,7 +14,7 @@
 
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -29,7 +29,7 @@
         </Grid.RowDefinitions>
         <Label  FontSize="24" Margin="10">User data</Label>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Margin="7">
-            
+
             <Label  FontSize="18" Margin="10" FontWeight="Bold">Personal</Label>
             <Label>Greeting</Label>
             <ComboBox x:Name="greetingBox"
@@ -38,9 +38,15 @@
                       Margin="5">
             </ComboBox>
             <Label>First Name</Label>
-            <TextBox Height="25"></TextBox>
+            <TextBox Height="25"
+                     DataContext="{Binding Path=Person}"
+                     Text="{Binding Path=Fname,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+
+            </TextBox>
             <Label>LastName</Label>
-            <TextBox Height="25"></TextBox>
+            <TextBox Height="25"
+                     DataContext="{Binding Path=Person}"
+                     Text="{Binding Path=Lname}"></TextBox>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="10">
             <Label  FontSize="18" Margin="10" FontWeight="Bold">Adress</Label>
@@ -51,25 +57,35 @@
                       Margin="5">
             </ComboBox>
             <Label>City</Label>
-            <TextBox Height="25"></TextBox>
+            <TextBox Height="25"
+                     DataContext="{Binding Path=Person}"
+                     Text="{Binding Path=City}"></TextBox>
             <Label>Street</Label>
-            <TextBox Height="25"></TextBox>
+            <TextBox Height="25"
+                     DataContext="{Binding Path=Person}"
+                     Text="{Binding Path=Street}"></TextBox>
             <Label>PostalCode</Label>
-            <TextBox Height="25"></TextBox>
+            <TextBox Height="25"
+                     DataContext="{Binding Path=Person}"
+                     Text="{Binding Path=Zip}"></TextBox>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Margin="10">
             <Label  FontSize="18" Margin="10" FontWeight="Bold">Work</Label>
             <Label>Company</Label>
-            <TextBox Height="25"></TextBox>
+            <TextBox Height="25"
+                     DataContext="{Binding Path=Person}"
+                     Text="{Binding Path=Cpny}"></TextBox>
             <Label>Title</Label>
-            <TextBox Height="25"></TextBox>
+            <TextBox Height="25"
+                     DataContext="{Binding Path=Person}"
+                     Text="{Binding Path=Title}"></TextBox>
         </StackPanel>
-        
+
         <Grid Grid.Row="3" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="60"></RowDefinition>
-                </Grid.RowDefinitions>
+            </Grid.RowDefinitions>
             <Label Grid.Row="0" FontSize="18" Margin="10" FontWeight="Bold">Contacts</Label>
             <ToolBar Grid.Row="1"
                      Background="White"
@@ -89,18 +105,18 @@
                         Height="40"
                         Margin="5"
                         Background="LightSkyBlue" 
-                        Content="New" Click="New_Contact_Click" />
+                        Content="New" Click="NewContact_Click" />
 
                 <Button Width="50"
                         Height="40"
                         Margin="5"
                         Background="LightSkyBlue" 
-                        Content="Edit" Click="Edit_Contacts_Click">
+                        Content="Edit" Click="EditContact_Click">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="IsEnabled" Value="False" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedItemsList.Count,ElementName=contactsGrid}"
+                                <DataTrigger Binding="{Binding SelectedItems.Count,ElementName=contactsGrid}"
                                  Value="1">
                                     <Setter Property="IsEnabled"
                                 Value="True" />
@@ -114,11 +130,20 @@
                         Height="40"
                         Margin="5"
                         Background="LightSkyBlue" 
-                        Content="Delete" Click="DeleteContacts_Click">
+                        Content="Refresh"
+                        Command="{Binding RefreshCommand}"/>
+
+                <Button Width="50"
+                        Height="40"
+                        Margin="5"
+                        Background="LightSkyBlue" 
+                        Content="Delete"
+                        Command="{Binding DeleteCommand}"
+                        CommandParameter="{Binding ElementName=contactsGrid, Path=SelectedItems}">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedItemsList.Count,ElementName=contactsGrid}"
+                                <DataTrigger Binding="{Binding ElementName=contactsGrid, Path=SelectedItems.Count}"
                                  Value="0">
                                     <Setter Property="IsEnabled"
                                 Value="False" />
@@ -128,21 +153,8 @@
                     </Button.Style>
                 </Button>
             </ToolBar>
-    </Grid>
-            
-        
-        <!--<Grid ShowGridLines="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="60,22,57,26">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" Grid.Column="0"></Label>
-            
-        </Grid>-->
+        </Grid>
+
         <Grid HorizontalAlignment="Stretch" 
           VerticalAlignment="Stretch" 
           Margin="15" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
@@ -153,23 +165,22 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
-            <MultyDataGrid:MultySelectedDataGrid x:Name="contactsGrid"
+            <DataGrid x:Name="contactsGrid"
                       ItemsSource="{Binding Contacts}"
-                      SelectedItemsList="{Binding SelectedContacts,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"
                       IsReadOnly="True"
                       Width="Auto"
                       Height="Auto"
                       HeadersVisibility="None"
-                      DataContext="{Binding}"
+                      SelectedItem="{Binding Path=SelectedContact}"
                       AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*"
-                                        Binding="{Binding ContactTypeId,Converter={StaticResource Convertor}}"></DataGridTextColumn>
+                                        Binding="{Binding Path=ContactTypeId,Converter={StaticResource Convertor}}"></DataGridTextColumn>
                     <DataGridTextColumn Width="*"
-                                        Binding="{Binding Txt}"></DataGridTextColumn>
+                                        Binding="{Binding Path=Txt}"></DataGridTextColumn>
                 </DataGrid.Columns>
-            </MultyDataGrid:MultySelectedDataGrid>
-            
+            </DataGrid>
+
         </Grid>
         <StackPanel Grid.Column="1"
                     Grid.Row="5"
@@ -180,17 +191,15 @@
                 Height="20" 
                 HorizontalAlignment="Right" 
                 Margin="5"  
-                Background="LightSkyBlue" Click="Save_CustomerProfile_Click">Save
+                Background="LightSkyBlue" Click="CustumerProfile_Save_Click">Save
             </Button>
             <Button  
                 Width="70" 
                 Height="20" 
                 HorizontalAlignment="Right" 
                 Margin="5"  
-                Background="LightSkyBlue">Cancel
+                Background="LightSkyBlue" Click="CustumerProfile_Cancel_Click">Cancel
             </Button>
         </StackPanel>
-       
-        
     </Grid>
 </Window>

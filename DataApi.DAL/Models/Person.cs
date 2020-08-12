@@ -8,7 +8,6 @@ namespace DataApi.DAL.Models
         public Person()
         {
             PersonContact = new List<PersonContact>();
-            int k = 0;
         }
 
         public int Id { get; set; }

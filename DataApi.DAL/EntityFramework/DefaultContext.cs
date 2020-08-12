@@ -22,10 +22,6 @@ namespace DataApi.DAL.EntityFramework
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<PersonContact> PersonContact { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-
-        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,10 +16,24 @@ namespace TestWPF.ViewModels
 {
     public class CustomerProfileVM : INotifyPropertyChanged
     {
+        HttpClient _client;
         public CustomerProfileVM()
         {
             Contacts = new ObservableCollection<Contact>();
             person = new Person();
+            selectedContact = new Contact();
+
+        }
+
+        public CustomerProfileVM(Person personFromDb)
+        {
+            person = personFromDb;
+            Contacts = new ObservableCollection<Contact>(personFromDb.Contacts);
+
+            selectedContact = new Contact();
+
+            _client = new HttpClient();
+            _client.BaseAddress = new Uri("http://localhost:5000/api/");
         }
 
         public ObservableCollection<Contact> Contacts { get; set; }
@@ -34,7 +50,7 @@ namespace TestWPF.ViewModels
         }
 
         private Contact selectedContact;
-        public Contact SelectedContac
+        public Contact SelectedContact
         {
             get { return selectedContact; }
             set
@@ -80,6 +96,32 @@ namespace TestWPF.ViewModels
                 {
                     Contacts.Remove(c);
                 }
+            }
+        }
+
+        private RelayCommand refreshCommand;
+        public RelayCommand RefreshCommand
+        {
+            get
+            {
+                return refreshCommand ??
+                  (refreshCommand = new RelayCommand(Refresh));
+            }
+        }
+
+        public async void Refresh(object obj)
+        {
+            HttpResponseMessage response = await _client.GetAsync($"person/{person.Id}");
+
+            var jsonCustomer = await response.Content.ReadAsStringAsync();
+
+            var customer = JsonConvert.DeserializeObject<Person>(jsonCustomer);
+
+            Contacts.Clear();
+
+            foreach(Contact c in customer.Contacts)
+            {
+                Contacts.Add(c);
             }
         }
     }

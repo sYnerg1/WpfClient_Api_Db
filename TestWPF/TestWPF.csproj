@@ -71,13 +71,13 @@
     </Compile>
     <Compile Include="Models\ActionModels\NewCutomerModel.cs" />
     <Compile Include="Models\Contact.cs" />
-    <Compile Include="MultySelectedDataGrid.cs" />
     <Compile Include="NewContactWindow.xaml.cs">
       <DependentUpon>NewContactWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="NewCustomerProfileWindow.xaml.cs">
       <DependentUpon>NewCustomerProfileWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Validation\INotEmpty.cs" />
     <Compile Include="ViewModels\ContactVM.cs" />
     <Compile Include="ViewModels\CustomerProfileVM.cs" />
     <Compile Include="ViewModels\PersonViewModel.cs" />

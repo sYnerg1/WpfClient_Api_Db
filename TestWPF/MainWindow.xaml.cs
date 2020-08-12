@@ -28,12 +28,12 @@ namespace TestWPF
         private static List<Country> Countries;
 
         PersonViewModel persons;
-        HttpClient client = new HttpClient();
+        HttpClient client;
 
         public MainWindow()
         {
-
             persons = new PersonViewModel();
+            client = new HttpClient();
             DataContext = persons;
             
             client.BaseAddress = new Uri("http://localhost:5000/api/");
@@ -44,14 +44,37 @@ namespace TestWPF
         //main_Window start
         async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            
             HttpResponseMessage response = await client.GetAsync("/api/person");
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
 
             var personsFromApi = JsonConvert.DeserializeObject<IEnumerable<Person>>(json);
 
+            persons.Persons.Clear();
             foreach (Person p in personsFromApi)
             {
+                switch (languageSelector.SelectedIndex)
+                {
+                    case 0:
+                            p.GreetingView = p.Greeting1;
+                            p.CountryView = p.Country1;
+
+                        break;
+                    case 1:
+                            p.GreetingView = p.Greeting2;
+                            p.CountryView = p.Country2;
+                        break;
+                    case 2:
+                            p.GreetingView = p.Greeting3;
+                            p.CountryView = p.Country3;
+                        break;
+                    case 3:
+                            p.GreetingView = p.Greeting4;
+                            p.CountryView = p.Country4;
+                        break;
+                }
+
                 persons.Persons.Add(p);
             }
 
@@ -99,6 +122,7 @@ namespace TestWPF
                 }
             }
 
+
         }
 
 
@@ -141,47 +165,52 @@ namespace TestWPF
 
         ///////////////////////               NewCustomerCode                 ///////////////////////////////////////
         //adding new customer
-        private void NewCutomerAdd(object sender, RoutedEventArgs e)
+
+        private void NewCutomerAdd_Click(object sender, RoutedEventArgs e)
         {
-
-            NewCustomerProfileWindow window = new NewCustomerProfileWindow(Countries,Greetings,persons.LanguageId);
+            NewCustomerProfileWindow window = new NewCustomerProfileWindow(Countries, Greetings, persons.LanguageId);
             window.CustomerProfileCreated += CreateNewCustomer;
-
-            if (window.ShowDialog() == true)
-            {
-                MessageBox.Show("End");
-            }
-            else
-            {
-                MessageBox.Show("dadad");
-            }
+            window.ShowDialog();
         }
 
-        public async void CreateNewCustomer(Person person)
+        public async void CreateNewCustomer(int id)
         {
+            var response = await client.GetAsync($"person/{id}");
 
+            var jsonCustomer = await response.Content.ReadAsStringAsync();
 
-            MessageBox.Show("Good One");
+            var customer = JsonConvert.DeserializeObject<Person>(jsonCustomer);
+            customer.CountryView = customer.Country1;
+            customer.GreetingView = customer.Greeting1;
+
+            persons.Persons.Add(customer);
+            MessageBox.Show($"{customer.Fname} successfully added");
         }
 
 
         ///////////////////////                EditingCustomerCode                 ///////////////////////////////////////
         private void Edit_Customer_Click(object sender, RoutedEventArgs e)
         {           
-           // int k = languageId + 1;
-            int custumerId = persons.SelectedPerson.Id;
-            CustomerProfileWindow window = new CustomerProfileWindow(custumerId,1);
-            window.CustomerProfileUpdate += EditCustomer;
+            CustomerProfileWindow window = new CustomerProfileWindow(persons.SelectedPerson.Id, persons.LanguageId,Countries,Greetings);
+            window.CustomerProfileUpdated+= EditCustomer;
             window.ShowDialog();
         }
 
-        public async void EditCustomer(Person person)
+        public async void EditCustomer(int id)
         {
-            string json = JsonConvert.SerializeObject(person);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.GetAsync($"person/{id}");
 
-            HttpResponseMessage response = await client.PutAsync("person", data);
-            response.EnsureSuccessStatusCode();
+            var jsonCustomer = await response.Content.ReadAsStringAsync();
+
+            var customer = JsonConvert.DeserializeObject<Person>(jsonCustomer);
+            customer.GreetingView = customer.Greeting1;
+            customer.CountryView = customer.Country1;
+
+            var personToUpdate = persons.Persons.FirstOrDefault(x=>x.Id ==id);
+
+            persons.Persons.Remove(personToUpdate);
+
+            persons.Persons.Add(customer);
 
             MessageBox.Show("Updated");
         }
@@ -189,10 +218,9 @@ namespace TestWPF
         //double click datagrid
         private void personsGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-           // int k = languageId + 1;
             int custumerId = persons.SelectedPerson.Id;
-            CustomerProfileWindow window = new CustomerProfileWindow(custumerId, 1);
-            window.CustomerProfileUpdate += EditCustomer;
+            CustomerProfileWindow window = new CustomerProfileWindow(custumerId, persons.LanguageId, Countries, Greetings);
+            window.CustomerProfileUpdated += EditCustomer;
             window.ShowDialog();
         }
 
@@ -230,5 +258,7 @@ namespace TestWPF
                     break;
             }
         }
+
+        
     }
 }

@@ -10,6 +10,8 @@ namespace DataApi.BAL.Services
     {
         Task<PagedPersonsDTO> Find(SearchFilterDTO filter);
         Task<PersonDTO> GetByIdAsync(int id);
-        Task AddAsync(PersonDTO personDTO);
+        Task<int> AddAsync(PersonDTO personDTO);
+        Task<bool> UpdateAsync(int id,PersonDTO personDTO);
+        Task<bool> DeleteAsync(int id);
     }
 }

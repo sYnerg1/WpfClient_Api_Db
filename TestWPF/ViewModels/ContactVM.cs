@@ -11,9 +11,16 @@ namespace TestWPF.ViewModels
 {
     public class ContactVM : INotifyPropertyChanged
     {
+        public string DefaultTxt { get; set; }
         public ContactVM()
         {
             contact = new Contact();
+        }
+
+        public ContactVM(Contact con)
+        {
+            contact = con;
+            DefaultTxt = con.Txt;
         }
 
         private Contact contact;

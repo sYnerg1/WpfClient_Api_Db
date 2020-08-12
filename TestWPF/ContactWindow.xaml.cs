@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TestWPF.Models;
+using TestWPF.ViewModels;
 
 namespace TestWPF
 {
@@ -21,21 +22,26 @@ namespace TestWPF
     /// </summary>
     public partial class ContactWindow : Window
     {
-        private HttpClient _client = new HttpClient();
+        ContactVM _contactToUpdate;
 
-        public ContactWindow()
-        {
-            InitializeComponent();
-            _client.BaseAddress = new Uri("http://localhost:5000/api/");
-
-        }
         public ContactWindow(Contact contact)
         {
-            DataContext = contact;
+            _contactToUpdate = new ContactVM(contact);
+            DataContext = _contactToUpdate;
             InitializeComponent();
-            ContactTextBox.Text = contact.Txt;
-            _client.BaseAddress = new Uri("http://localhost:5000/api/");
+            ContactTypeComboBox.SelectedIndex = contact.ContactTypeId - 1;
+        }
 
+        private void Update_Contact_Click(object sender, RoutedEventArgs e)
+        {
+            _contactToUpdate.Contact.ContactTypeId = ContactTypeComboBox.SelectedIndex + 1;
+            DialogResult = true;
+        }
+
+        private void Cancel_Contact_Click(object sender, RoutedEventArgs e)
+        {
+            _contactToUpdate.Contact.Txt = _contactToUpdate.DefaultTxt;
+           DialogResult = false;
         }
     }
 }

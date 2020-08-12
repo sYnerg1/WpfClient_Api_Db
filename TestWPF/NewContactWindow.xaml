@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:TestWPF"
         mc:Ignorable="d"
         Title="NewContactWindow" Height="232" Width="279"
+        WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>

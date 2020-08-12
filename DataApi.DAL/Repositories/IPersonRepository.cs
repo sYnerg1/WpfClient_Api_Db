@@ -9,9 +9,10 @@ namespace DataApi.DAL.Repositories
 {
     public interface IPersonRepository
     {
-        Task AddAsync(Person value);
-        Task AddRangeAsync(IEnumerable<Person> value);
+        Task<int> AddAsync(Person value);
         Task<Person> GetByIdAsync(int id);
+        Task<bool> UpdateAsync(int id,Person person);
+        Task<bool> DeleteAsync(int id);
         IQueryable<Person> GetQuery();
     }
 }

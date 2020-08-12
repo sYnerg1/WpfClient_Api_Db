@@ -59,20 +59,40 @@ namespace DataApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] PersonDTO person)
         {
-            await _personService.AddAsync(person);
-            return StatusCode(201);
+            int createdPersonId = await _personService.AddAsync(person);
+            return StatusCode(201, createdPersonId);
         }
 
         // PUT api/<DataController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] PersonDTO person)
         {
+            var result = await _personService.UpdateAsync(id,person);
+
+            if (result)
+            {
+                return Ok(id);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         // DELETE api/<DataController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+           var result = await _personService.DeleteAsync(id);
+
+            if (result)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }

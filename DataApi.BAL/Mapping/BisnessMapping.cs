@@ -29,13 +29,13 @@ namespace DataApi.BAL.Mapping
                 .ForMember(x => x.Greeting2, z => z.MapFrom(y => y.Greeting.Txt2))
                 .ForMember(x => x.Greeting3, z => z.MapFrom(y => y.Greeting.Txt3))
                 .ForMember(x => x.Greeting4, z => z.MapFrom(y => y.Greeting.Txt4))
-                .ForMember(x => x.Contact, z => z.MapFrom(y => y.PersonContact.FirstOrDefault().Txt))
+                .ForMember(x => x.Contact, z => z.MapFrom(y => y.PersonContact.FirstOrDefault(x=>x.ContactTypeId==1).Txt))
                 .ForMember(x => x.Contacts, z => z.MapFrom(y => y.PersonContact))
                 .ForMember(x => x.CountryCode, z => z.MapFrom(y => y.CountryCode))
                 .ForMember(x => x.GreetingId, z => z.MapFrom(y => y.GreetingId));
 
             CreateMap<PersonDTO, Person>()
-                 .ForMember(x => x.GreetingId, z => z.MapFrom(y => y.GreetingId + 1));
+                .ForMember(x=>x.PersonContact,z=>z.MapFrom(y=>y.Contacts));
                 
            
         }
