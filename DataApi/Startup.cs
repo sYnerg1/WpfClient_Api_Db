@@ -26,9 +26,9 @@ namespace DataApi
         {
             services.AddControllers();
             services.AddDbContext<DefaultContext>(options =>
-            options.UseMySQL("server=localhost;port=3306;user=testUser;password=testpass19;database=test_db"));
+            options.UseMySQL(Configuration.GetConnectionString("ApiConnection")));
             services.Load();
-            services.AddAutoMapper(/*typeof(PersonViewModelMapping),*/typeof(BisnessMapping));
+            services.AddAutoMapper(typeof(BisnessMapping));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

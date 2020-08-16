@@ -121,8 +121,6 @@ namespace TestWPF
                     gr.Txt4 = gr.Txt1;
                 }
             }
-
-
         }
 
 
@@ -257,8 +255,6 @@ namespace TestWPF
                     }
                     break;
             }
-        }
-
-        
+        }    
     }
 }

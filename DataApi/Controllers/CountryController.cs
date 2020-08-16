@@ -22,9 +22,15 @@ namespace DataApi.Controllers
         [HttpGet("")]
         public async Task<IActionResult> Get()
         {
-            var result = await _countryService.GetAllCountriesAsync();
+            try {
+                var result = await _countryService.GetAllCountriesAsync();
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }      
         }
     }
 }

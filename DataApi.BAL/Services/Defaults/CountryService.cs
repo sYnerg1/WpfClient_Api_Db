@@ -26,15 +26,6 @@ namespace DataApi.BAL.Services.Defaults
             var countriesDTO = _mapper.Map<IEnumerable<Country>, IEnumerable<CountryDTO>>(countries);
             return countriesDTO;
 
-            //List<string> countryNames;
-
-            //return id switch
-            //{
-            //    1 => countryNames  = new List<string>(countries.Select(x => x.Txt1)),
-            //    2 => countryNames  = new List<string>(countries.Select(x => x.Txt2)),
-            //    3 => countryNames  = new List<string>(countries.Select(x => x.Txt3)),
-            //    4 => countryNames  = new List<string>(countries.Select(x => x.Txt4)),
-            //};
         }
     }
 }

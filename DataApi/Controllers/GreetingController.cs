@@ -13,12 +13,10 @@ namespace DataApi.Controllers
     [ApiController]
     public class GreetingController : ControllerBase
     {
-       // private readonly IMapper _mapper;
         private readonly IGreetingService _greetingService;
 
         public GreetingController(IGreetingService greetingService)
         {
-          //  _mapper = mapper;
             _greetingService = greetingService;
         }
 

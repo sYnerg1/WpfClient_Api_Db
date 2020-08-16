@@ -29,19 +29,16 @@ namespace DataApi.BAL.Services.Defaults
             var queryOfPersons = _persons
                 .GetQuery();
 
-            if (filter.SearchText == "" || filter.SearchText == null)
-            {
-
-            }
-            else
+            if (filter.SearchText != "" && filter.SearchText != null)
             {
                 queryOfPersons = queryOfPersons
-                    .Where(x => x.Fname == filter.SearchText ||
-                    x.Cpny == filter.SearchText ||
-                    x.City == filter.SearchText ||
-                    x.Lname == filter.SearchText)
-                    .Distinct();                    
+                   .Where(x => x.Fname.Contains(filter.SearchText) ||
+                   x.Cpny.Contains(filter.SearchText) ||
+                   x.City.Contains(filter.SearchText) ||
+                   x.Lname.Contains(filter.SearchText))
+                   .Distinct();
             }
+
             queryOfPersons = queryOfPersons
                 .Skip((filter.Page - 1) * 32)
                 .Take(32);

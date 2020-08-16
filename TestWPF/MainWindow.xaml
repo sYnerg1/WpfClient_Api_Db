@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestWPF"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Title="MainWindow" Height="507.857" Width="1057.143" Loaded="MainWindow_Loaded"
         WindowState="Maximized">
@@ -44,7 +45,14 @@
                           VerticalContentAlignment="Center" 
                           HorizontalContentAlignment="Center" 
                           Margin="3" 
-                          SelectedIndex="{Binding Path=LanguageId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged" Loaded="languageSelector_Load">
+                          SelectedIndex="{Binding Path=LanguageId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                          SelectionChanged="ComboBox_SelectionChanged" Loaded="languageSelector_Load">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction 
+                                 Command="{Binding LanguageChangedCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <ComboBoxItem>
                         <TextBlock>GR</TextBlock>
                     </ComboBoxItem>

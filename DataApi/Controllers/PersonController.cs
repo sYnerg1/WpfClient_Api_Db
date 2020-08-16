@@ -34,8 +34,16 @@ namespace DataApi.Controllers
                 SearchText = text
             };
 
-            var result = await _personService.Find(filter);
-            return Ok(result.Persons);
+            try
+            {
+                var result = await _personService.Find(filter);
+                return Ok(result.Persons);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
 
@@ -59,40 +67,61 @@ namespace DataApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] PersonDTO person)
         {
-            int createdPersonId = await _personService.AddAsync(person);
-            return StatusCode(201, createdPersonId);
+            try
+            {
+                int createdPersonId = await _personService.AddAsync(person);
+                return StatusCode(201, createdPersonId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }    
         }
 
         // PUT api/<DataController>/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] PersonDTO person)
         {
-            var result = await _personService.UpdateAsync(id,person);
+            try {
+                var result = await _personService.UpdateAsync(id, person);
 
-            if (result)
+                if (result)
+                {
+                    return Ok(id);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }catch (Exception ex)
             {
-                return Ok(id);
+                return BadRequest(ex.Message);
             }
-            else
-            {
-                return BadRequest();
-            }
+            
         }
 
         // DELETE api/<DataController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-           var result = await _personService.DeleteAsync(id);
+            try
+            {
+                var result = await _personService.DeleteAsync(id);
 
-            if (result)
-            {
-                return Ok();
+                if (result)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
-            else
+            catch(Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
+           
         }
     }
 }

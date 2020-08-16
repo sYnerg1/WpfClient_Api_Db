@@ -66,52 +66,12 @@ namespace DataApi.DAL.Repositories.Defaults
                 .Include(p => p.Greeting)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-
-
-
-           // HashSet<int> k = new HashSet<int>();
             if (existPerson!=null)
             {
-                 //  _db.Entry(person).State = EntityState.Modified;
                 _db.Entry(existPerson).CurrentValues.SetValues(person);
 
-
-                //foreach (var existingContacts in existPerson.PersonContact.ToList())
-                //{
-                //    if (!person.PersonContact.Any(c => c.PersonContactId == existingContacts.PersonContactId))
-                //    {
-                //        _db.PersonContact.Remove(existingContacts);
-                //    }
-                //}
-
-
-
-                //foreach (var contact in person.PersonContact)
-                //{
-                //    var existingContact = existPerson.PersonContact
-                //        .SingleOrDefault(c => c.PersonContactId == contact.PersonContactId);
-
-                //    if (existingContact != null)
-                //    {
-                //        existingContact.Txt = contact.Txt;
-                //        existingContact.ContactTypeId = contact.ContactTypeId;
-                //    }
-                //    else
-                //    {
-                //        // Insert child
-                //        var newContact = new PersonContact
-                //        {
-                //            Txt = contact.Txt,
-                //            ContactTypeId = contact.ContactTypeId
-                //        };
-                //        existPerson.PersonContact.Add(newContact);
-                //    }
-                //}
                 existPerson.PersonContact = person.PersonContact;
 
-                int k = 10;
-
-                
                 return (await _db.SaveChangesAsync())>0;
             }
             else
