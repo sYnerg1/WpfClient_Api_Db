@@ -27,3 +27,9 @@ C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\NewCustomerProfileWindow.baml
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\NewContactWindow.g.cs
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\NewContactWindow.baml
 C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\obj\Debug\TestWPF.csprojAssemblyReference.cache
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\bin\Debug\MaterialDesignColors.dll
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\bin\Debug\MaterialDesignColors.pdb
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\sYnerg1\Desktop\TestWPF\TestWPF\bin\Debug\MaterialDesignThemes.Wpf.xml

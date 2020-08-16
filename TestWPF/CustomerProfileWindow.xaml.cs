@@ -31,7 +31,7 @@ namespace TestWPF
         private readonly int _languageCode;
         private readonly int _customerId;
         private HttpClient _client = new HttpClient();
-       
+
 
         private CustomerProfileVM _customerVM;
 
@@ -48,7 +48,7 @@ namespace TestWPF
             InitializeComponent();
 
             _client.BaseAddress = new Uri("http://localhost:5000/api/");
-           
+
             this.Loaded += Window_Loaded_For_Edit_Customer;
         }
 
@@ -65,14 +65,14 @@ namespace TestWPF
 
             DataContext = _customerVM;
             int personCountryOrder = 0;
-            foreach(Country c in _countries)
+            foreach (Country c in _countries)
             {
-                if(c.Code==customer.CountryCode)
+                if (c.Code == customer.CountryCode)
                 {
                     break;
                 }
                 personCountryOrder++;
-            }                    
+            }
 
             switch (_languageCode)
             {
@@ -143,9 +143,9 @@ namespace TestWPF
 
                 _customerVM.Person.Contacts = _customerVM.Contacts.ToList();
 
-                if (_customerVM.Person.Contacts.Any(x=>x.ContactTypeId==1))
+                if (_customerVM.Person.Contacts.Any(x => x.ContactTypeId == 1))
                 {
-                    _customerVM.Person.Contact = _customerVM.Person.Contacts.FirstOrDefault(x=>x.ContactTypeId==1).Txt; 
+                    _customerVM.Person.Contact = _customerVM.Person.Contacts.FirstOrDefault(x => x.ContactTypeId == 1).Txt;
                 }
                 else
                 {
@@ -159,7 +159,7 @@ namespace TestWPF
                 HttpResponseMessage response = await _client.PutAsync($"person/{_customerVM.Person.Id}", data);
                 if (response.IsSuccessStatusCode)
                 {
-                    int  idOfUpdatedPerson = Convert.ToInt32(await response.Content.ReadAsStringAsync());
+                    int idOfUpdatedPerson = Convert.ToInt32(await response.Content.ReadAsStringAsync());
                     CustomerProfileUpdated(idOfUpdatedPerson);
                     this.DialogResult = true;
                 }

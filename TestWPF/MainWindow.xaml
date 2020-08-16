@@ -6,8 +6,14 @@
         xmlns:local="clr-namespace:TestWPF"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        Title="MainWindow" Height="507.857" Width="1057.143" Loaded="MainWindow_Loaded"
+        Title="MainWindow" Height="507.857" Width="1057.143"
         WindowState="Maximized">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction 
+              Command="{Binding WindowLoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Window.Resources>
         
     </Window.Resources>
@@ -45,8 +51,7 @@
                           VerticalContentAlignment="Center" 
                           HorizontalContentAlignment="Center" 
                           Margin="3" 
-                          SelectedIndex="{Binding Path=LanguageId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                          SelectionChanged="ComboBox_SelectionChanged" Loaded="languageSelector_Load">
+                          SelectedIndex="{Binding Path=LanguageId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction 
@@ -59,8 +64,8 @@
                     <TextBlock>FR</TextBlock>
                     <TextBlock>IT</TextBlock>
                     <TextBlock Selector.IsSelected="True">EN</TextBlock>
-
                 </ComboBox>
+                
                 <Button Background="LightSkyBlue" 
                         Content="New" 
                         Click="NewCutomerAdd_Click" 
@@ -119,6 +124,7 @@
                   RowHeight="25"
                   SelectedItem="{Binding SelectedPerson}" 
                   Width="Auto"
+                  CanUserAddRows="False"
                   Height="Auto"
                   IsReadOnly="True"
                   MouseDoubleClick="personsGrid_MouseDoubleClick">

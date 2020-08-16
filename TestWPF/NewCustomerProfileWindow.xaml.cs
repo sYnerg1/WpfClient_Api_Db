@@ -41,21 +41,21 @@ namespace TestWPF
             _countries = countries;
             _languageCode = languageCode;
             DataContext = _newCustomer;
-            
+
             InitializeComponent();
 
             this.Loaded += Window_Loaded;
 
-            _client.BaseAddress = new Uri("http://localhost:5000/api/"); 
+            _client.BaseAddress = new Uri("http://localhost:5000/api/");
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            switch(_languageCode)
+            switch (_languageCode)
             {
                 case 0:
-                    greetingBox.ItemsSource = _greetings.Select(x=>x.Txt1);
-                    countryBox.ItemsSource = _countries.Select(x=>x.Txt1);
+                    greetingBox.ItemsSource = _greetings.Select(x => x.Txt1);
+                    countryBox.ItemsSource = _countries.Select(x => x.Txt1);
                     break;
                 case 1:
                     greetingBox.ItemsSource = _greetings.Select(x => x.Txt2);
@@ -71,7 +71,7 @@ namespace TestWPF
                     break;
             }
         }
-        
+
         private async void NewCustumerProfile_Save_Click(object sender, RoutedEventArgs e)
         {
             if ((_newCustomer.Person.Lname == "" || _newCustomer.Person.Lname == null) ||
@@ -100,7 +100,7 @@ namespace TestWPF
                 _newCustomer.Person.GreetingId++;
 
                 _newCustomer.Person.FirstContact = DateTime.Now;
-               
+
                 string json = JsonConvert.SerializeObject(_newCustomer.Person);
 
                 var data = new StringContent(json, Encoding.UTF8, "application/json");

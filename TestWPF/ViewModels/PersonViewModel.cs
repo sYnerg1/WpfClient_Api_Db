@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Navigation;
 using TestWPF.Commands;
 using TestWPF.Models;
@@ -17,6 +18,9 @@ namespace TestWPF.ViewModels
 {
     public class PersonViewModel : INotifyPropertyChanged
     {
+        public List<Greeting> Greetings;
+        public List<Country> Countries;
+
         private int page = 1;
         private Person selectedPerson;
         private int languageId = 0;
@@ -133,6 +137,28 @@ namespace TestWPF.ViewModels
             }
         }
 
+        private RelayCommand languageChangedCommand;
+        public RelayCommand LanguageChangedCommand
+        {
+            get
+            {
+                return languageChangedCommand ??
+                  (languageChangedCommand = new RelayCommand(LanguageChanged));
+            }
+        }
+
+
+        private RelayCommand windowLoadedCommand;
+        public RelayCommand WindowLoadedCommand
+        {
+            get
+            {
+                return windowLoadedCommand ??
+                  (windowLoadedCommand = new RelayCommand(WindowLoaded));
+            }
+        }
+
+
         public async void Search(object obj)
         {
             Page = 0;
@@ -147,30 +173,10 @@ namespace TestWPF.ViewModels
             Persons.Clear();
             foreach (Person p in personsFromApi)
             {
-                switch (LanguageId)
-                {
-                    case 0:
-                        p.GreetingView = p.Greeting1;
-                        p.CountryView = p.Country1;
-
-                        break;
-                    case 1:
-                        p.GreetingView = p.Greeting2;
-                        p.CountryView = p.Country2;
-                        break;
-                    case 2:
-                        p.GreetingView = p.Greeting3;
-                        p.CountryView = p.Country3;
-                        break;
-                    case 3:
-                        p.GreetingView = p.Greeting4;
-                        p.CountryView = p.Country4;
-                        break;
-                }
                 Persons.Add(p);
             }
+            LanguageChanged(new object());
         }
-
 
         public async void Refresh(object obj)
         {
@@ -186,30 +192,10 @@ namespace TestWPF.ViewModels
             Persons.Clear();
             foreach (Person p in personsFromApi)
             {
-                switch (LanguageId)
-                {
-                    case 0:
-                        p.GreetingView = p.Greeting1;
-                        p.CountryView = p.Country1;
-
-                        break;
-                    case 1:
-                        p.GreetingView = p.Greeting2;
-                        p.CountryView = p.Country2;
-                        break;
-                    case 2:
-                        p.GreetingView = p.Greeting3;
-                        p.CountryView = p.Country3;
-                        break;
-                    case 3:
-                        p.GreetingView = p.Greeting4;
-                        p.CountryView = p.Country4;
-                        break;
-                }
                 Persons.Add(p);
             }
+            LanguageChanged(new object());
         }
-
 
         public async void Delete(object obj)
         {
@@ -241,28 +227,9 @@ namespace TestWPF.ViewModels
             Persons.Clear();
             foreach (Person p in personsFromApi)
             {
-                switch (LanguageId)
-                {
-                    case 0:
-                        p.GreetingView = p.Greeting1;
-                        p.CountryView = p.Country1;
-
-                        break;
-                    case 1:
-                        p.GreetingView = p.Greeting2;
-                        p.CountryView = p.Country2;
-                        break;
-                    case 2:
-                        p.GreetingView = p.Greeting3;
-                        p.CountryView = p.Country3;
-                        break;
-                    case 3:
-                        p.GreetingView = p.Greeting4;
-                        p.CountryView = p.Country4;
-                        break;
-                }
                 Persons.Add(p);
             }
+            LanguageChanged(new object());
         }
 
         public async void NextPage(object obj)
@@ -279,28 +246,190 @@ namespace TestWPF.ViewModels
             Persons.Clear();
             foreach (Person p in personsFromApi)
             {
-                switch (LanguageId)
-                {
-                    case 0:
-                        p.GreetingView = p.Greeting1;
-                        p.CountryView = p.Country1;
-
-                        break;
-                    case 1:
-                        p.GreetingView = p.Greeting2;
-                        p.CountryView = p.Country2;
-                        break;
-                    case 2:
-                        p.GreetingView = p.Greeting3;
-                        p.CountryView = p.Country3;
-                        break;
-                    case 3:
-                        p.GreetingView = p.Greeting4;
-                        p.CountryView = p.Country4;
-                        break;
-                }
                 Persons.Add(p);
             }
+            LanguageChanged(new object());
         }
+
+        public void LanguageChanged(object obj)
+        {
+            switch (LanguageId)
+            {
+                case 0:
+                    foreach (Person p in Persons)
+                    {
+                        p.GreetingView = p.Greeting1;
+                        p.CountryView = p.Country1;
+                    }
+                    break;
+                case 1:
+                    foreach (Person p in Persons)
+                    {
+                       if(p.Greeting2==null || p.Greeting2=="")
+                        {
+                            p.GreetingView = p.Greeting1;
+                        }
+                       else
+                        {
+                            p.GreetingView = p.Greeting2;
+                        }
+
+                       if(p.Country2==null || p.Country2=="")
+                        {
+                            p.CountryView = p.Country1;
+                        }
+                       else
+                        {
+                            p.CountryView = p.Country2;
+                        }  
+                    }
+                    break;
+                case 2:
+                    foreach (Person p in Persons)
+                    {
+                        if (p.Greeting3 == null || p.Greeting3 == "")
+                        {
+                            p.GreetingView = p.Greeting1;
+                        }
+                        else
+                        {
+                            p.GreetingView = p.Greeting3;
+                        }
+
+                        if (p.Country3 == null || p.Country3 == "")
+                        {
+                            p.CountryView = p.Country1;
+                        }
+                        else
+                        {
+                            p.CountryView = p.Country3;
+                        }
+                    }
+                    break;
+                case 3:
+                    foreach (Person p in Persons)
+                    {
+                        if (p.Greeting4 == null || p.Greeting4 == "")
+                        {
+                            p.GreetingView = p.Greeting1;
+                        }
+                        else
+                        {
+                            p.GreetingView = p.Greeting4;
+                        }
+
+                        if (p.Country4 == null || p.Country4 == "")
+                        {
+                            p.CountryView = p.Country1;
+                        }
+                        else
+                        {
+                            p.CountryView = p.Country4;
+                        }
+                    }
+                    break;
+            }
+        }
+
+        public async void WindowLoaded(object obj)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync("/api/person");
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+
+                var personsFromApi = JsonConvert.DeserializeObject<IEnumerable<Person>>(json);
+
+                Persons.Clear();
+
+                foreach (Person p in personsFromApi)
+                {
+                    Persons.Add(p);
+                }
+                LanguageChanged(new object());
+
+                HttpResponseMessage responseGreeting = await client.GetAsync("/api/greeting");
+                responseGreeting.EnsureSuccessStatusCode();
+                var jsonGreeting = await responseGreeting.Content.ReadAsStringAsync();
+
+                Greetings = JsonConvert.DeserializeObject<List<Greeting>>(jsonGreeting);
+
+                foreach (Greeting gr in Greetings)
+                {
+                    if (gr.Txt2 == null || gr.Txt2 == "")
+                    {
+                        gr.Txt2 = gr.Txt1;
+                    }
+                    if (gr.Txt3 == null || gr.Txt3 == "")
+                    {
+                        gr.Txt3 = gr.Txt1;
+                    }
+                    if (gr.Txt4 == null || gr.Txt4 == "")
+                    {
+                        gr.Txt4 = gr.Txt1;
+                    }
+                }
+
+                HttpResponseMessage responseCountry = await client.GetAsync("/api/country");
+                responseCountry.EnsureSuccessStatusCode();
+                var jsonCountry = await responseCountry.Content.ReadAsStringAsync();
+
+                Countries = JsonConvert.DeserializeObject<List<Country>>(jsonCountry);
+
+                foreach (Country gr in Countries)
+                {
+                    if (gr.Txt2 == null || gr.Txt2 == "")
+                    {
+                        gr.Txt2 = gr.Txt1;
+                    }
+                    if (gr.Txt3 == null || gr.Txt3 == "")
+                    {
+                        gr.Txt3 = gr.Txt1;
+                    }
+                    if (gr.Txt4 == null || gr.Txt4 == "")
+                    {
+                        gr.Txt4 = gr.Txt1;
+                    }
+                }
+            }catch
+            {
+                MessageBox.Show(" Error!!!!\nMaybe you need change the connection string\n in DataApi project");
+            }
+        }
+
+
+        public async void EditCustomer(int id)
+        {
+            var response = await client.GetAsync($"person/{id}");
+
+            var jsonCustomer = await response.Content.ReadAsStringAsync();
+
+            var customer = JsonConvert.DeserializeObject<Person>(jsonCustomer);
+            customer.GreetingView = customer.Greeting1;
+            customer.CountryView = customer.Country1;
+
+            var personToUpdate = Persons.FirstOrDefault(x => x.Id == id);
+
+            Persons.Remove(personToUpdate);
+
+            Persons.Add(customer);
+
+        }
+
+
+        public async void CreateNewCustomer(int id)
+        {
+            var response = await client.GetAsync($"person/{id}");
+
+            var jsonCustomer = await response.Content.ReadAsStringAsync();
+
+            var customer = JsonConvert.DeserializeObject<Person>(jsonCustomer);
+            customer.CountryView = customer.Country1;
+            customer.GreetingView = customer.Greeting1;
+            Persons.Add(customer);
+        }
+
+
     }
 }

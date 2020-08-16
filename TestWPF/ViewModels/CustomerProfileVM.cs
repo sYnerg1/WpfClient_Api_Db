@@ -39,7 +39,7 @@ namespace TestWPF.ViewModels
         public ObservableCollection<Contact> Contacts { get; set; }
 
         private Person person;
-        public  Person Person
+        public Person Person
         {
             get { return person; }
             set
@@ -85,7 +85,7 @@ namespace TestWPF.ViewModels
             }
         }
 
-        public async void Delete(object obj)
+        public void Delete(object obj)
         {
             var castToIList = obj as IList;
             if (obj != null)
@@ -119,7 +119,7 @@ namespace TestWPF.ViewModels
 
             Contacts.Clear();
 
-            foreach(Contact c in customer.Contacts)
+            foreach (Contact c in customer.Contacts)
             {
                 Contacts.Add(c);
             }

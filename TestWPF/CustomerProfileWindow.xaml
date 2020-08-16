@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="CustomerProfileWindow" Height="901" Width="600">
+        Title="CustomerProfileWindow" Height="901" Width="600" Loaded="Window_Loaded_For_Edit_Customer">
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="ItemsControl.Margin" Value="5"></Setter>
